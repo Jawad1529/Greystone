@@ -2,7 +2,8 @@
 import { motion } from "framer-motion";
 
 export default function Hero() {
-  const headline = "ERP • Accounting • Data Modeling Experts";
+  const headline = "Greystone: Experts in ERP, Accounting, and Data Modeling";
+
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -10,7 +11,7 @@ export default function Hero() {
       <div className="absolute inset-0 -z-10">
         <video
           className="w-full h-full object-cover"
-          src="/london.mp4"
+          src="/london.mkv"
           autoPlay
           loop
           muted

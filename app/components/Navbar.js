@@ -17,7 +17,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo + Brand */}
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-[#233B6C] rounded-full" /> {/* Placeholder Logo */}
+          <img src="/logo.ai"/> {/* Placeholder Logo */}
           <span className="text-xl font-bold text-[#233B6C]">GrayStone</span>
         </div>
 

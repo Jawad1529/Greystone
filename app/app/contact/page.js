@@ -1,11 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: "",
   });
@@ -14,11 +16,43 @@ export default function ContactUs() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Integrate EmailJS here if needed
-    console.log("Form submitted:", formData);
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  const serviceID = "service_bccnuw8";
+  const templateID = "template_hv4x48a";
+  const publicKey = "zLeGwJUIh7RUCCJfF";
+
+  // Construct a formatted message body
+  const fullMessage = `
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Subject: ${formData.subject}
+
+Message:
+${formData.message}
+  `;
+
+  emailjs
+    .send(serviceID, templateID, {
+      title: formData.subject,
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      message: fullMessage, // <-- send the formatted body
+    }, publicKey)
+    .then((response) => {
+      console.log("SUCCESS!", response.status, response.text);
+      alert("Message sent successfully!");
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    })
+    .catch((err) => {
+      console.error("FAILED...", err);
+      alert("Oops! Something went wrong.");
+    });
+};
+
 
   const message = "We’re here to help! Feel free to contact us.";
 
@@ -70,6 +104,15 @@ export default function ContactUs() {
               name="email"
               placeholder="Your Email"
               value={formData.email}
+              onChange={handleChange}
+              required
+              className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
+            />
+            <input
+              type="text"
+              name="phone"
+              placeholder="Your Phone Number"
+              value={formData.phone}
               onChange={handleChange}
               required
               className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
