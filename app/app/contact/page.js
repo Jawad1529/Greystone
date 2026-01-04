@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -16,15 +18,62 @@ export default function ContactUs() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
+  // Basic validation function
+  const validateForm = () => {
+    const { name, email, phone, subject, message } = formData;
 
-  const serviceID = "service_bccnuw8";
-  const templateID = "template_hv4x48a";
-  const publicKey = "zLeGwJUIh7RUCCJfF";
+    if (!name.trim()) {
+      toast.error("Please enter your name.");
+      return false;
+    }
 
-  // Construct a formatted message body
-  const fullMessage = `
+    if (!email.trim()) {
+      toast.error("Please enter your email.");
+      return false;
+    }
+
+    // Simple email regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address.");
+      return false;
+    }
+
+    if (!phone.trim()) {
+      toast.error("Please enter your phone number.");
+      return false;
+    }
+
+    // Simple phone regex (allow numbers, +, -)
+    const phoneRegex = /^[0-9+\- ]{7,15}$/;
+    if (!phoneRegex.test(phone)) {
+      toast.error("Please enter a valid phone number.");
+      return false;
+    }
+
+    if (!subject.trim()) {
+      toast.error("Please enter a subject.");
+      return false;
+    }
+
+    if (!message.trim()) {
+      toast.error("Please enter a message.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) return; // stop if validation fails
+
+    const serviceID = "service_bccnuw8";
+    const templateID = "template_hv4x48a";
+    const publicKey = "zLeGwJUIh7RUCCJfF";
+
+    const fullMessage = `
 Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
@@ -32,32 +81,49 @@ Subject: ${formData.subject}
 
 Message:
 ${formData.message}
-  `;
+    `;
 
-  emailjs
-    .send(serviceID, templateID, {
-      title: formData.subject,
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      message: fullMessage, // <-- send the formatted body
-    }, publicKey)
-    .then((response) => {
-      console.log("SUCCESS!", response.status, response.text);
-      alert("Message sent successfully!");
-      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-    })
-    .catch((err) => {
-      console.error("FAILED...", err);
-      alert("Oops! Something went wrong.");
-    });
-};
-
+    emailjs
+      .send(
+        serviceID,
+        templateID,
+        {
+          title: formData.subject,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: fullMessage,
+        },
+        publicKey
+      )
+      .then((response) => {
+        console.log("SUCCESS!", response.status, response.text);
+        toast.success("Message sent successfully!");
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      })
+      .catch((err) => {
+        console.error("FAILED...", err);
+        toast.error("Oops! Something went wrong.");
+      });
+  };
 
   const message = "We’re here to help! Feel free to contact us.";
 
   return (
     <section id="contact" className="py-20 bg-[#F8F8F8]">
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
         {/* Animated Text */}
         <motion.div
@@ -96,7 +162,6 @@ ${formData.message}
               placeholder="Your Name"
               value={formData.name}
               onChange={handleChange}
-              required
               className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
             />
             <input
@@ -105,7 +170,6 @@ ${formData.message}
               placeholder="Your Email"
               value={formData.email}
               onChange={handleChange}
-              required
               className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
             />
             <input
@@ -114,7 +178,6 @@ ${formData.message}
               placeholder="Your Phone Number"
               value={formData.phone}
               onChange={handleChange}
-              required
               className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
             />
             <input
@@ -123,7 +186,6 @@ ${formData.message}
               placeholder="Subject"
               value={formData.subject}
               onChange={handleChange}
-              required
               className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
             />
             <textarea
@@ -131,7 +193,6 @@ ${formData.message}
               placeholder="Your Message"
               value={formData.message}
               onChange={handleChange}
-              required
               rows={5}
               className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
             ></textarea>

@@ -25,7 +25,7 @@ export default function CertificationsMarquee() {
 
       <div className="w-full overflow-hidden">
         <motion.div
-          className="flex gap-6 whitespace-nowrap"
+          className="flex sm:gap-6 gap-4 whitespace-nowrap"
           animate={{ x: ["0%", "-33.33%"] }}
           transition={{
             duration: 15,

@@ -17,8 +17,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo + Brand */}
         <div className="flex items-center space-x-2">
-          <img src="/logo.ai"/> {/* Placeholder Logo */}
-          <span className="text-xl font-bold text-[#233B6C]">GrayStone</span>
+          <img src="/icons/logo.svg" className="w-5 h-5"/> {/* Placeholder Logo */}
+          <span className="text-xl font-bold text-[#233B6C]">GreyStone Hyde Advisory Ltd.</span>
         </div>
 
         {/* Desktop Links */}
