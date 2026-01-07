@@ -8,7 +8,7 @@ export default function Footer() {
         {/* Logo, Address & Socials */}
         <div className="flex flex-col items-start">
           <h2 className="text-2xl font-bold mb-2">
-            GreyStone Hyde Advisory Ltd.
+            Greystone Hyde Advisory Ltd.
           </h2>
 
           {/* Address */}
@@ -77,6 +77,16 @@ export default function Footer() {
             <li>
               <a href="#services" className="hover:text-[#1BB0A5] transition-colors">
                 Services
+              </a>
+            </li>
+             <li>
+              <a href="#certifications" className="hover:text-[#1BB0A5] transition-colors">
+                Certifications
+              </a>
+            </li>
+             <li>
+              <a href="#testimonials" className="hover:text-[#1BB0A5] transition-colors">
+                Testimonials
               </a>
             </li>
             <li>

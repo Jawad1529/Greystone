@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function Hero() {
-  const headline = "Experts in ERP, Accounting, and Data Modeling";
+  const headline = "Experts in Accounting, Taxation, Advisory and ERP";
 
   const [clients, setClients] = useState(0);
   const [years, setYears] = useState(0);
@@ -65,7 +65,7 @@ export default function Hero() {
         </h1>
 
         <p className="mt-6 text-white text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl">
-          Modern ERP, Accounting, and Data Modeling solutions for your business.
+          Modern Accounting, Taxation, Advisory and ERP solutions for your business.
         </p>
 
         {/* Counters (numbers animate only) */}

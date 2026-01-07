@@ -8,6 +8,8 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "#home" },
     { name: "Services", href: "#services" },
+    {name: "Certifications", href :"#certifications"},
+    {name: "Testimonials", href : "#testimonials" },
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
   ];
@@ -18,7 +20,7 @@ export default function Navbar() {
         {/* Logo + Brand */}
         <div className="flex items-center space-x-2">
           <img src="/icons/logo.svg" className="w-5 h-5"/> {/* Placeholder Logo */}
-          <span className="text-xl font-bold text-[#233B6C]">GreyStone Hyde Advisory Ltd.</span>
+          <span className="text-xl font-bold text-[#233B6C]">Greystone Hyde Advisory Ltd.</span>
         </div>
 
         {/* Desktop Links */}

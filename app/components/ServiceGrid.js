@@ -5,24 +5,25 @@ const services = [
   {
     title: "ERP Solutions",
     description:
-      "Streamline your business processes with our modern ERP implementations. Optimize efficiency, reduce costs, and automate workflows with our tailored ERP solutions.",
+      "Design, implementation, and optimization of ERP systems aligned with your business processes. We help you integrate finance, operations, and reporting into a single, reliable platform—improving efficiency, control, and real-time decision-making while reducing manual work and operational risk.",
   },
   {
     title: "Accounting Services",
     description:
-      "Accurate and efficient accounting solutions tailored for your business. From bookkeeping to tax compliance, we’ve got you covered.",
+      "Reliable day-to-day accounting support designed to keep your financial records accurate and up to date. Our services include professional bookkeeping, payroll processing, and routine financial reporting ensuring compliance, consistency, and clear visibility over your business finances.",
   },
   {
-    title: "Data Modeling",
+    title: "Tax Services",
     description:
-      "Build reliable data structures for analytics and business intelligence. Make data-driven decisions with confidence.",
+      "Comprehensive UK tax compliance and advisory services to ensure your business and personal tax obligations are met accurately and on time. We support clients with Corporation Tax, VAT compliance, payroll tax filings, and self-assessment returns, while providing practical guidance to manage liabilities and remain fully compliant with HMRC requirements.",
   },
   {
-    title: "Consulting",
+    title: "Business Advisory",
     description:
-      "Expert guidance to optimize your workflows and systems. Get actionable insights from industry experts.",
+      "Strategic and forward-looking business advisory services to help organisations progress with confidence in an evolving environment. We support clients through data-driven research and financial analysis, assisting them in navigating risks, identifying opportunities, and strengthening decision-making. Our services include cash flow management, forecasting, budgeting, performance reporting, and process streamlining. We also work with startups to establish sound business foundations, governance-ready financial structures, and reporting frameworks that support sustainable growth.",
   },
 ];
+
 
 // Motion container for stagger effect
 const containerVariants = {
@@ -49,7 +50,7 @@ export default function ServicesGrid() {
         </h2>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -65,9 +66,9 @@ export default function ServicesGrid() {
                 boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
               }}
               transition={{ type: "spring", stiffness: 150, damping: 20 }}
-              className="bg-white rounded-lg border-2 border-transparent cursor-pointer h-72 flex flex-col transition-all duration-300"
+              className="bg-white rounded-lg border-2 border-transparent cursor-pointer flex flex-col transition-all duration-300"
             >
-              <div className="p-6 flex flex-col justify-start h-full">
+              <div className="p-6 flex flex-col h-full">
                 <h3
                   className="text-xl font-semibold mb-3"
                   style={{ color: "#233B6C" }}
