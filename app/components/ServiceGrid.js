@@ -24,7 +24,6 @@ const services = [
   },
 ];
 
-
 // Motion container for stagger effect
 const containerVariants = {
   hidden: {},
@@ -42,6 +41,14 @@ const cardVariants = {
 };
 
 export default function ServicesGrid() {
+  const handleServiceClick = () => {
+    // Smooth scroll to contact section
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section id="services" className="py-20 bg-[#F8F8F8]">
       <div className="max-w-7xl mx-auto px-6">
@@ -67,6 +74,15 @@ export default function ServicesGrid() {
               }}
               transition={{ type: "spring", stiffness: 150, damping: 20 }}
               className="bg-white rounded-lg border-2 border-transparent cursor-pointer flex flex-col transition-all duration-300"
+              onClick={handleServiceClick}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleServiceClick();
+                }
+              }}
             >
               <div className="p-6 flex flex-col h-full">
                 <h3
@@ -78,6 +94,23 @@ export default function ServicesGrid() {
                 <p className="text-gray-700 text-base md:text-lg mt-2">
                   {service.description}
                 </p>
+                <div className="mt-4 pt-4 border-t border-gray-100 text-sm text-[#233B6C] font-medium flex items-center justify-between">
+                  <span>Get Started</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </div>
               </div>
             </motion.div>
           ))}
