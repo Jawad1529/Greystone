@@ -19,8 +19,11 @@ export default function CertificationsMarquee() {
       id="certifications"
       className="w-full h-[250px] bg-[#F8F8F8] overflow-hidden flex flex-col items-center"
     >
-      <div className="text-3xl font-bold text-center mb-12 text-[#233B6C] ">
-        Our Certifications
+      {/* Changed to gradient text */}
+      <div className="text-3xl font-bold text-center mb-12">
+        <span className="bg-gradient-to-r from-[#233B6C] to-blue-600 bg-clip-text text-transparent">
+          Our Certifications
+        </span>
       </div>
 
       <div className="w-full overflow-hidden">

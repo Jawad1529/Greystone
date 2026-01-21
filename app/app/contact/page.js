@@ -4,6 +4,7 @@ import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { ArrowDown } from "lucide-react";
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -18,7 +19,6 @@ export default function ContactUs() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Basic validation function
   const validateForm = () => {
     const { name, email, phone, subject, message } = formData;
 
@@ -32,7 +32,6 @@ export default function ContactUs() {
       return false;
     }
 
-    // Simple email regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       toast.error("Please enter a valid email address.");
@@ -44,7 +43,6 @@ export default function ContactUs() {
       return false;
     }
 
-    // Simple phone regex (allow numbers, +, -)
     const phoneRegex = /^[0-9+\- ]{7,15}$/;
     if (!phoneRegex.test(phone)) {
       toast.error("Please enter a valid phone number.");
@@ -67,7 +65,7 @@ export default function ContactUs() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!validateForm()) return; // stop if validation fails
+    if (!validateForm()) return;
 
     const serviceID = "service_bccnuw8";
     const templateID = "template_hv4x48a";
@@ -107,10 +105,10 @@ ${formData.message}
       });
   };
 
-  const message = "We’re here to help! Feel free to contact us.";
+  const message = "We're here to help! Feel free to contact us.";
 
   return (
-    <section id="contact" className="py-20 bg-[#F8F8F8]">
+    <section id="contact" className="py-24 bg-[#F8F8F8]">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -124,87 +122,112 @@ ${formData.message}
         theme="light"
       />
 
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
-        {/* Animated Text */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Simplified Section Header */}
         <motion.div
-          className="w-full md:w-1/2 flex items-center justify-center text-center"
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-[#233B6C]">
-            {message.split("").map((char, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: i * 0.05 }}
-              >
-                {char}
-              </motion.span>
-            ))}
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-[#233B6C] to-blue-600 bg-clip-text text-transparent">
+              Contact Us
+            </span>
           </h2>
         </motion.div>
 
-        {/* Contact Form */}
-        <motion.div
-          className="w-full md:w-1/2 bg-white rounded-lg p-8 shadow-lg"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={handleChange}
-              className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={handleChange}
-              className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
-            />
-            <input
-              type="text"
-              name="phone"
-              placeholder="Your Phone Number"
-              value={formData.phone}
-              onChange={handleChange}
-              className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
-            />
-            <input
-              type="text"
-              name="subject"
-              placeholder="Subject"
-              value={formData.subject}
-              onChange={handleChange}
-              className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
-            />
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              value={formData.message}
-              onChange={handleChange}
-              rows={5}
-              className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#233B6C]"
-            ></textarea>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column - Text */}
+          <motion.div
+            className="text-center lg:text-left"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h3 className="text-3xl font-bold text-[#233B6C] mb-6">
+              {message.split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: i * 0.05 }}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </h3>
+            <p className="text-gray-600 text-lg mb-8">
+              Ready to transform your financial operations? Let's start the conversation.
+            </p>
+          </motion.div>
 
-            <button
-              type="submit"
-              className="bg-[#233B6C] text-white py-3 rounded font-semibold hover:bg-[#14938E] transition-colors duration-300"
-            >
-              Send Message
-            </button>
-          </form>
-        </motion.div>
+          {/* Right Column - Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="bg-white rounded-2xl p-8 shadow-xl">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#233B6C]/30"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#233B6C]/30"
+                />
+                <input
+                  type="text"
+                  name="phone"
+                  placeholder="Your Phone Number"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#233B6C]/30"
+                />
+                <input
+                  type="text"
+                  name="subject"
+                  placeholder="Subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#233B6C]/30"
+                />
+                <textarea
+                  name="message"
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={5}
+                  className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#233B6C]/30"
+                />
+
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="relative group w-full inline-flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#233B6C] to-blue-600 px-8 py-4 text-white font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-[#233B6C] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <span className="relative">Send Message</span>
+                  <ArrowDown size={18} className="relative -rotate-90 group-hover:translate-x-1 transition-transform" />
+                </motion.button>
+              </form>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
