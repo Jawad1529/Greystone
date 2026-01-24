@@ -1,10 +1,10 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ArrowDown } from "lucide-react";
 
 export default function Hero() {
-  const headline = "End-to-end accounting, advisory, and ERP solutions for every business stage";
+  const headline = "End-to-end bookkeeping, accounting, taxation, advisory and ERP solutions for every business stage";
   
   // Rotating services list - similar to Bookkeeper360
   const rotatingServices = [
@@ -20,6 +20,30 @@ export default function Hero() {
   const [clients, setClients] = useState(0);
   const [years, setYears] = useState(0);
   const [cas, setCas] = useState(0);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
+  const videoContainerRef = useRef(null);
+
+  // Intersection Observer for lazy loading video
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVideoVisible(true);
+          observer.disconnect();
+        }
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: '50px' // Start loading slightly before entering viewport
+      }
+    );
+
+    if (videoContainerRef.current) {
+      observer.observe(videoContainerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   // Animate the rotating services
   useEffect(() => {
@@ -65,11 +89,9 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen bg-[#F8F8F8] flex items-center overflow-hidden mt-15"
+      className="relative min-h-screen bg-[#F8F8F8] flex items-center overflow-hidden mt-5 sm:mt-18"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 lg:pt-0">
-      
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Column - Text Content (EXACTLY AS ORIGINAL) */}
           <motion.div
@@ -83,7 +105,7 @@ export default function Hero() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6"
               >
                 <div className="w-2 h-2 bg-[#233B6C] rounded-full animate-pulse" />
                 <span className="text-sm font-medium text-[#233B6C]">Trusted by 50+ Businesses</span>
@@ -175,17 +197,29 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.3 }}
             className="relative"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <video
-                className="w-full h-auto aspect-video object-cover"
-                autoPlay
-                loop
-                muted
-                playsInline
-              >
-                <source src="/hero.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+            {/* Video container with Intersection Observer ref */}
+            <div ref={videoContainerRef} className="relative rounded-2xl overflow-hidden shadow-2xl">
+              {isVideoVisible ? (
+                <video
+                  className="w-full h-auto aspect-video object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata" // Changed from "auto" to "metadata"
+                >
+                  <source src="/hero.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                // Optional: Show a placeholder while video loads
+                <div className="w-full aspect-video bg-gradient-to-br from-[#233B6C]/10 to-blue-600/10 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-[#233B6C]/30 border-t-[#233B6C] rounded-full animate-spin mx-auto"></div>
+                    <p className="mt-4 text-[#233B6C] font-medium">Loading video...</p>
+                  </div>
+                </div>
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-[#233B6C]/20 to-transparent" />
             </div>
 

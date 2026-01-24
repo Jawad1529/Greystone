@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
@@ -13,6 +13,54 @@ export default function Navbar() {
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
   ];
+
+  // Handle smooth scroll
+  const handleLinkClick = (href) => {
+    if (href.startsWith("#")) {
+      // Close mobile menu first
+      setIsOpen(false);
+      
+      // Wait for the menu animation to complete before scrolling
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          // Calculate offset for fixed navbar
+          const navbarHeight = 80; // Adjust this based on your navbar height
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }, 300); // Match this with your animation duration
+    }
+  };
+
+  // Close mobile menu on escape key press
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  // Close mobile menu when clicking outside (optional)
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (isOpen && !e.target.closest("nav")) {
+        setIsOpen(false);
+      }
+    };
+    
+    if (isOpen) {
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
+    }
+  }, [isOpen]);
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-sm border-b border-gray-200/50 z-50">
@@ -31,6 +79,10 @@ export default function Navbar() {
             <a
               key={link.name}
               href={link.href}
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick(link.href);
+              }}
               className="text-gray-700 hover:text-[#233B6C] font-medium transition-all duration-300 hover:scale-105"
             >
               {link.name}
@@ -42,6 +94,10 @@ export default function Navbar() {
         <div className="hidden md:block">
           <a
             href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              handleLinkClick("#contact");
+            }}
             className="relative group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#233B6C] to-blue-600 px-6 py-2.5 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-[#233B6C] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -54,6 +110,7 @@ export default function Navbar() {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex flex-col w-7 h-7 justify-between items-end"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
           >
             <span
               className={`block h-0.5 bg-gradient-to-r from-[#233B6C] to-blue-600 transition-all ${
@@ -86,24 +143,22 @@ export default function Navbar() {
           >
             <div className="flex flex-col px-6 py-4 space-y-6">
               {navLinks.map((link) => (
-                <a
+                <button
                   key={link.name}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-gray-700 hover:text-[#233B6C] font-medium transition-all duration-300 py-2 border-b border-gray-100 last:border-0"
+                  onClick={() => handleLinkClick(link.href)}
+                  className="text-left text-gray-700 hover:text-[#233B6C] font-medium transition-all duration-300 py-2 border-b border-gray-100 last:border-0"
                 >
                   {link.name}
-                </a>
+                </button>
               ))}
               {/* Mobile CTA Button */}
-              <a
-                href="#contact"
-                onClick={() => setIsOpen(false)}
+              <button
+                onClick={() => handleLinkClick("#contact")}
                 className="relative group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#233B6C] to-blue-600 px-6 py-3 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden mt-4"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-[#233B6C] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <span className="relative">Get Free Consultation</span>
-              </a>
+              </button>
             </div>
           </motion.div>
         )}

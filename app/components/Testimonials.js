@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    name: "John Smith",
+    name: "Sandra Perez",
     role: "CFO, TechCorp",
     text: "Greystone's ERP solution transformed our financial processes. Truly professional and reliable!",
   },
@@ -13,7 +13,7 @@ const testimonials = [
     text: "The team is knowledgeable and attentive. Highly recommended for accounting automation.",
   },
   {
-    name: "David Lee",
+    name: "Dustin Nathaniel",
     role: "Managing Director, FinSolutions",
     text: "Their expertise in data modeling saved us weeks of work. Excellent support throughout.",
   },
