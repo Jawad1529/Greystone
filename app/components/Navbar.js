@@ -114,7 +114,7 @@ export default function Navbar() {
           >
             <span
               className={`block h-0.5 bg-gradient-to-r from-[#233B6C] to-blue-600 transition-all ${
-                isOpen ? "rotate-45 translate-y-3 w-7" : "w-7"
+                isOpen ? "rotate-44 translate-y-3.25 w-7" : "w-7"
               }`}
             />
             <span
@@ -124,7 +124,7 @@ export default function Navbar() {
             />
             <span
               className={`block h-0.5 bg-gradient-to-r from-[#233B6C] to-blue-600 transition-all ${
-                isOpen ? "-rotate-45 -translate-y-3 w-7" : "w-4"
+                isOpen ? "-rotate-45 -translate-y-3.25 w-7" : "w-4"
               }`}
             />
           </button>
