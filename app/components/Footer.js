@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-gradient-to-r from-[#233B6C] to-blue-700 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
-        
+
         {/* Logo, Address & Socials */}
         <div className="flex flex-col items-start">
           <h2 className="text-2xl font-bold mb-4">
@@ -13,7 +13,8 @@ export default function Footer() {
 
           {/* Address */}
           <p className="text-sm text-gray-200 mb-6 leading-relaxed">
-            61 Bridge Street, Kington
+
+            Suite C220, 4 - 6, Greatorex Street, London, E1 5NF, United Kingdom
           </p>
 
           {/* Social Icons */}
@@ -54,8 +55,8 @@ export default function Footer() {
               { href: "#contact", label: "Contact" },
             ].map((link, i) => (
               <li key={i}>
-                <a 
-                  href={link.href} 
+                <a
+                  href={link.href}
                   className="hover:text-white transition-colors duration-300 hover:translate-x-1 inline-block"
                 >
                   {link.label}
@@ -72,17 +73,18 @@ export default function Footer() {
           <div className="w-full rounded-xl overflow-hidden shadow-2xl mb-4">
             <iframe
               className="w-full h-48"
-              src="https://www.google.com/maps?q=61+Bridge+Street,+Kington&output=embed"
+              src="https://www.google.com/maps?q=Suite+C220,+4-6+Greatorex+Street,+London,+E1+5NF,+United+Kingdom&output=embed"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Google Maps Location"
-            ></iframe>
+            />
           </div>
 
           {/* Contact Info */}
           <div className="text-right space-y-2">
             <p className="text-sm text-gray-200">
-              61 Bridge Street, Kington
+              Greystone Hyde Advisory Ltd
+              Suite C220, 4 - 6, Greatorex Street, London, E1 5NF, United Kingdom
             </p>
             <p className="text-sm text-gray-200">
               Contact:{" "}
@@ -100,7 +102,7 @@ export default function Footer() {
           {/* Copyright */}
           <div className="mt-6 pt-6 border-t border-white/10 w-full text-center">
             <p className="text-xs text-gray-300">
-              © {new Date().getFullYear()} Greystone Hyde Advisory Ltd.  
+              © {new Date().getFullYear()} Greystone Hyde Advisory Ltd.
               All rights reserved.
             </p>
           </div>
