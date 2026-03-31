@@ -71,9 +71,9 @@ export default function ContactUs() {
 
     setIsLoading(true); // <-- start spinner & disable button
 
-    const serviceID = "service_bccnuw8";
-    const templateID = "template_hv4x48a";
-    const publicKey = "zLeGwJUIh7RUCCJfF";
+  const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
     const fullMessage = `
 Name: ${formData.name}
